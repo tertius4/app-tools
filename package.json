@@ -1,0 +1,35 @@
+{
+  "name": "app-tools",
+  "version": "1.0.0",
+  "description": "Shared tools used across all my applications.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tertius4/app-tools.git"
+  },
+  "author": "Tertius",
+  "license": "MIT License",
+  "devDependencies": {
+    "@capacitor/android": "^8.0.1",
+    "@capacitor/cli": "^8.0.1",
+    "@capacitor/docgen": "^0.3.0",
+    "@ionic/prettier-config": "^4.0.0",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "@types/gapi": "^0.0.47",
+    "@types/gapi.auth2": "^0.0.61",
+    "prettier": "^3.6.2",
+    "svelte": "^5.47.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  },
+  "peerDependencies": {
+    "@capacitor/core": "^8.0.1",
+    "@capacitor/preferences": "^8.0.0",
+    "svelte": "^5.0.0"
+  },
+  "dependencies": {
+    "@firebase/firestore": "^4.10.0"
+  }
+}
