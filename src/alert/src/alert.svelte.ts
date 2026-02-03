@@ -1,33 +1,21 @@
 export class Alert {
-  success(message: string) {
-    this.show({
-      type: "success",
-      message,
-    });
+  success(title: string, message?: string) {
+    this.show({ type: "success", title: message ? title : undefined, message: message ?? title });
   }
 
-  error(message: string) {
-    this.show({
-      type: "error",
-      message,
-    });
+  error(title: string, message?: string) {
+    this.show({ type: "error", title: message ? title : undefined, message: message ?? title });
   }
 
-  warning(message: string) {
-    this.show({
-      type: "warning",
-      message,
-    });
+  warning(title: string, message?: string) {
+    this.show({ type: "warning", title: message ? title : undefined, message: message ?? title });
   }
 
-  info(message: string) {
-    this.show({
-      type: "info",
-      message,
-    });
+  info(title: string, message?: string) {
+    this.show({ type: "info", title: message ? title : undefined, message: message ?? title });
   }
 
-  private show({ type, message }: { type: string; message: string }) {
+  private show({ type, message, title }: { type: string; message: string; title?: string }) {
     if (typeof window === "undefined") {
       console.log(`[${type.toUpperCase()}] ${message}`);
       return;
@@ -52,8 +40,18 @@ export class Alert {
       default:
         alertBox.classList.add("bg-gray-200");
     }
-    
-    alertBox.innerText = message;
+
+    // Title
+    if (title) {
+      const titleElem = document.createElement("div");
+      titleElem.className = "font-bold mb-2";
+      titleElem.innerText = title;
+      alertBox.appendChild(titleElem);
+    }
+    // Message
+    const messageElem = document.createElement("div");
+    messageElem.innerText = message;
+    alertBox.appendChild(messageElem);
 
     // Show X button top right to close the alert.
     const closeButton = document.createElement("button");
@@ -63,7 +61,7 @@ export class Alert {
       document.body.removeChild(alertBox);
     };
     alertBox.appendChild(closeButton);
-    
+
     // Add to DOM
     document.body.appendChild(alertBox);
   }
