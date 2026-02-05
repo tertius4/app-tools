@@ -50,19 +50,19 @@ export class Alert {
     alert_box.className = `fixed top-2 right-2 left-2 w-full p-4 rounded shadow-lg text-black`;
     switch (type) {
       case "success":
-        alert_box.classList.add(`bg-[${this.success_hex}]`);
+        alert_box.style.backgroundColor = this.success_hex;
         break;
       case "error":
-        alert_box.classList.add(`bg-[${this.error_hex}]`);
+        alert_box.style.backgroundColor = this.error_hex;
         break;
       case "warning":
-        alert_box.classList.add(`bg-[${this.warning_hex}]`);
+        alert_box.style.backgroundColor = this.warning_hex;
         break;
       case "info":
-        alert_box.classList.add(`bg-[${this.info_hex}]`);
+        alert_box.style.backgroundColor = this.info_hex;
         break;
       default:
-        alert_box.classList.add(`bg-[${this.success_hex}]`);
+        alert_box.style.backgroundColor = this.success_hex;
     }
 
     // Title
