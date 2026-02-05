@@ -50,21 +50,38 @@ export class Alert {
     alert_box.className = `fixed top-2 right-2 left-2 w-full p-4 rounded shadow-lg`;
     alert_box.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
     alert_box.style.backdropFilter = "blur(10px)";
-    
+
     let textColor: string = this.success_hex;
     switch (type) {
       case "success":
-      textColor = this.success_hex;
-      break;
+        textColor = this.success_hex;
+        break;
       case "error":
-      textColor = this.error_hex;
-      break;
+        textColor = this.error_hex;
+        break;
       case "warning":
-      textColor = this.warning_hex;
-      break;
+        textColor = this.warning_hex;
+        break;
       case "info":
-      textColor = this.info_hex;
-      break;
+        textColor = this.info_hex;
+        break;
+    }
+
+    switch (type) {
+      case "success":
+        alert_box.style.backgroundColor = this.success_hex;
+        break;
+      case "error":
+        alert_box.style.backgroundColor = this.error_hex;
+        break;
+      case "warning":
+        alert_box.style.backgroundColor = this.warning_hex;
+        break;
+      case "info":
+        alert_box.style.backgroundColor = this.info_hex;
+        break;
+      default:
+        alert_box.style.backgroundColor = this.success_hex;
     }
     alert_box.style.color = textColor;
 
