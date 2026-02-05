@@ -11,7 +11,12 @@ export class Alert {
    * @param {string} param0.warning - Hex color for warning alerts (default: "oklch(79.5% 0.184 86.047)")
    * @param {string} param0.info - Hex color for info alerts (default: "oklch(55.4% 0.046 257.417)")
    */
-  constructor({ success, error, warning, info }: { success?: string; error?: string; warning?: string; info?: string } = {}) {
+  constructor({
+    success,
+    error,
+    warning,
+    info,
+  }: { success?: string; error?: string; warning?: string; info?: string } = {}) {
     if (success) this.success_hex = success;
     if (error) this.error_hex = error;
     if (warning) this.warning_hex = warning;
@@ -45,19 +50,19 @@ export class Alert {
     alert_box.className = `fixed top-2 right-2 left-2 w-full p-4 rounded shadow-lg text-black`;
     switch (type) {
       case "success":
-        alert_box.classList.add(this.success_hex);
+        alert_box.classList.add(`bg-[${this.success_hex}]`);
         break;
       case "error":
-        alert_box.classList.add(this.error_hex);
+        alert_box.classList.add(`bg-[${this.error_hex}]`);
         break;
       case "warning":
-        alert_box.classList.add(this.warning_hex);
+        alert_box.classList.add(`bg-[${this.warning_hex}]`);
         break;
       case "info":
-        alert_box.classList.add(this.info_hex);
+        alert_box.classList.add(`bg-[${this.info_hex}]`);
         break;
       default:
-        alert_box.classList.add(this.success_hex);
+        alert_box.classList.add(`bg-[${this.success_hex}]`);
     }
 
     // Title
