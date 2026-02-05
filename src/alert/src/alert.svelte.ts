@@ -1,8 +1,8 @@
 export class Alert {
-  private success_hex: string = "oklch(72.3% 0.219 149.579)";
-  private error_hex: string = "oklch(63.7% 0.237 25.331)";
-  private warning_hex: string = "oklch(79.5% 0.184 86.047)";
-  private info_hex: string = "oklch(55.4% 0.046 257.417)";
+  private success_hex: string = "#00c951";
+  private error_hex: string = "#fb2c36";
+  private warning_hex: string = "#efb100";
+  private info_hex: string = "#62748e";
 
   /**
    * @param {Object} param0
