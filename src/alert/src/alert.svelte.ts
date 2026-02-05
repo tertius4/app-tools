@@ -1,4 +1,23 @@
 export class Alert {
+  private success_hex: string = "oklch(72.3% 0.219 149.579)";
+  private error_hex: string = "oklch(63.7% 0.237 25.331)";
+  private warning_hex: string = "oklch(79.5% 0.184 86.047)";
+  private info_hex: string = "oklch(55.4% 0.046 257.417)";
+
+  /**
+   * @param {Object} param0
+   * @param {string} param0.success - Hex color for success alerts (default: "oklch(72.3% 0.219 149.579)")
+   * @param {string} param0.error - Hex color for error alerts (default: "oklch(63.7% 0.237 25.331)")
+   * @param {string} param0.warning - Hex color for warning alerts (default: "oklch(79.5% 0.184 86.047)")
+   * @param {string} param0.info - Hex color for info alerts (default: "oklch(55.4% 0.046 257.417)")
+   */
+  constructor({ success, error, warning, info }: { success?: string; error?: string; warning?: string; info?: string } = {}) {
+    if (success) this.success_hex = success;
+    if (error) this.error_hex = error;
+    if (warning) this.warning_hex = warning;
+    if (info) this.info_hex = info;
+  }
+
   success(title: string, message?: string) {
     this.show({ type: "success", title: message ? title : undefined, message: message ?? title });
   }
@@ -22,47 +41,47 @@ export class Alert {
     }
 
     // Add an alert box to the DOM (with tailwind).
-    const alertBox = document.createElement("div");
-    alertBox.className = `fixed top-2 right-2 left-2 w-full p-4 rounded shadow-lg text-black`;
+    const alert_box = document.createElement("div");
+    alert_box.className = `fixed top-2 right-2 left-2 w-full p-4 rounded shadow-lg text-black`;
     switch (type) {
       case "success":
-        alertBox.classList.add("bg-green-200");
+        alert_box.classList.add(this.success_hex);
         break;
       case "error":
-        alertBox.classList.add("bg-red-200");
+        alert_box.classList.add(this.error_hex);
         break;
       case "warning":
-        alertBox.classList.add("bg-yellow-200");
+        alert_box.classList.add(this.warning_hex);
         break;
       case "info":
-        alertBox.classList.add("bg-blue-200");
+        alert_box.classList.add(this.info_hex);
         break;
       default:
-        alertBox.classList.add("bg-gray-200");
+        alert_box.classList.add(this.success_hex);
     }
 
     // Title
     if (title) {
-      const titleElem = document.createElement("div");
-      titleElem.className = "font-bold mb-2";
-      titleElem.innerText = title;
-      alertBox.appendChild(titleElem);
+      const title_element = document.createElement("div");
+      title_element.className = "font-bold mb-2";
+      title_element.innerText = title;
+      alert_box.appendChild(title_element);
     }
     // Message
-    const messageElem = document.createElement("div");
-    messageElem.innerText = message;
-    alertBox.appendChild(messageElem);
+    const msg_element = document.createElement("div");
+    msg_element.innerText = message;
+    alert_box.appendChild(msg_element);
 
     // Show X button top right to close the alert.
-    const closeButton = document.createElement("button");
-    closeButton.innerText = "X";
-    closeButton.className = "absolute top-1 right-2 font-bold";
-    closeButton.onclick = () => {
-      document.body.removeChild(alertBox);
+    const close_butt = document.createElement("button");
+    close_butt.innerText = "X";
+    close_butt.className = "absolute top-1 right-2 font-bold";
+    close_butt.onclick = () => {
+      document.body.removeChild(alert_box);
     };
-    alertBox.appendChild(closeButton);
+    alert_box.appendChild(close_butt);
 
     // Add to DOM
-    document.body.appendChild(alertBox);
+    document.body.appendChild(alert_box);
   }
 }
