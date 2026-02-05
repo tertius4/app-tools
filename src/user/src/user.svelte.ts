@@ -18,6 +18,8 @@ export class User {
   is_loading = $state(false);
   is_initialized = $state(false);
 
+  readonly is_logged_in = $derived(!!this.id);
+
   constructor(client_id: string) {
     this.GOOGLE_AUTH_CLIENT_ID = client_id;
     void this.initialize();

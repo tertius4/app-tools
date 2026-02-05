@@ -1,7 +1,10 @@
+type Config = { success?: string; error?: string; warning?: string; info?: string; base?: string };
+
 export class Alert {
-  private success_hex: string = "#00c951";
+  private base_hex: string = "#ffffff";
+  private success_hex: string = "#497d00";
   private error_hex: string = "#fb2c36";
-  private warning_hex: string = "#efb100";
+  private warning_hex: string = "#bb4d00";
   private info_hex: string = "#62748e";
 
   /**
@@ -11,12 +14,8 @@ export class Alert {
    * @param {string} param0.warning - Hex color for warning alerts (default: "oklch(79.5% 0.184 86.047)")
    * @param {string} param0.info - Hex color for info alerts (default: "oklch(55.4% 0.046 257.417)")
    */
-  constructor({
-    success,
-    error,
-    warning,
-    info,
-  }: { success?: string; error?: string; warning?: string; info?: string } = {}) {
+  constructor({ success, error, warning, info, base }: Config = {}) {
+    if (base) this.base_hex = base;
     if (success) this.success_hex = success;
     if (error) this.error_hex = error;
     if (warning) this.warning_hex = warning;
@@ -47,43 +46,31 @@ export class Alert {
 
     // Add an alert box to the DOM (with tailwind).
     const alert_box = document.createElement("div");
-    alert_box.className = `fixed top-2 right-2 left-2 w-full p-4 rounded shadow-lg`;
-    alert_box.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
-    alert_box.style.backdropFilter = "blur(10px)";
+    alert_box.className = `fixed top-2 right-2 left-2 p-4 rounded shadow-lg`;
 
-    let textColor: string = this.success_hex;
+    // Use CSS custom properties instead of hardcoded colors
+    alert_box.style.backgroundColor = 'var(--color-bg-2)';
+    
+    let typeColorVar: string;
     switch (type) {
       case "success":
-        textColor = this.success_hex;
+        typeColorVar = 'var(--color-success)';
         break;
       case "error":
-        textColor = this.error_hex;
+        typeColorVar = 'var(--color-error)';
         break;
       case "warning":
-        textColor = this.warning_hex;
+        typeColorVar = 'var(--color-warning)';
         break;
       case "info":
-        textColor = this.info_hex;
+        typeColorVar = 'var(--color-primary)';
         break;
     }
-
-    switch (type) {
-      case "success":
-        alert_box.style.backgroundColor = this.success_hex;
-        break;
-      case "error":
-        alert_box.style.backgroundColor = this.error_hex;
-        break;
-      case "warning":
-        alert_box.style.backgroundColor = this.warning_hex;
-        break;
-      case "info":
-        alert_box.style.backgroundColor = this.info_hex;
-        break;
-      default:
-        alert_box.style.backgroundColor = this.success_hex;
-    }
-    alert_box.style.color = textColor;
+    
+    // Use the CSS variable directly
+    alert_box.style.color = typeColorVar;
+    alert_box.style.borderLeft = `4px solid ${typeColorVar}`;
+    alert_box.style.backgroundColor = 'var(--color-bg-2)';
 
     // Title
     if (title) {
@@ -99,8 +86,8 @@ export class Alert {
 
     // Show X button top right to close the alert.
     const close_butt = document.createElement("button");
-    close_butt.innerText = "X";
-    close_butt.className = "absolute top-1 right-2 font-bold";
+    close_butt.innerText = "×";
+    close_butt.className = "absolute top-2 right-2 font-bold text-[32px] h-fit aspect-square leading-none";
     close_butt.onclick = () => {
       document.body.removeChild(alert_box);
     };
